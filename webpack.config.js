@@ -7,17 +7,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+  // 1 environment mode 'development' || 'production'
   mode: 'development',
   entry: {
     main: './src/index.ts'
-  },
-  resolve: {
-    extensions: [".ts", ".tsx", ".js"]
   },
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].bundle.js',
     // publicPath: '/js',
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
     rules: [
@@ -64,7 +65,7 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     stats: 'errors-only',
     hot: true,
@@ -75,7 +76,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'My Test App',
-      template: './src/index.html'
+      inject: true,
+      template: path.resolve(__dirname, 'src', 'index.html'),
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
