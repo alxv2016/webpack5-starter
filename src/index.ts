@@ -1,5 +1,4 @@
-import './css/index.scss';
-console.log('hello webpack');
+import './scss/app.scss';
 
 function component(): HTMLElement {
   const element = document.createElement('div');
