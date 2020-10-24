@@ -9,30 +9,30 @@ module.exports = {
   // 1 the entry file(s)
   entry: {
     main: {
-      import: './src/index.ts', 
-      dependOn: 'shared'
+      import: './src/index.ts',
+      dependOn: 'shared',
     },
     vendor: {
-      import: './src/vendor.ts', 
-      dependOn: 'shared'
+      import: './src/vendor.ts',
+      dependOn: 'shared',
     },
-    shared: ['lodash']
+    shared: ['lodash'],
   },
   // 2 the output file(s)
   output: {
     // NodeJs relative path resolver
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
+    publicPath: './',
     filename: 'js/[name].[contenthash].js',
-    assetModuleFilename: 'assets/[hash][ext][query]'
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'My Test App',
+      title: 'My Test App!!',
       inject: true,
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'index.html'),
@@ -41,7 +41,7 @@ module.exports = {
       filename: 'css/[name].[contenthash].css',
       chunkFilename: 'css/[id].[contenthash].css',
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
@@ -58,9 +58,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       // Scss loader
       {
@@ -85,8 +85,8 @@ module.exports = {
       // Webpack5 assets loader
       {
         test: /\.(jpeg|png|svg|gif)$/,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
-    ]
+    ],
   },
 };
