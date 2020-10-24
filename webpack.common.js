@@ -14,7 +14,7 @@ module.exports = {
   output: {
     // NodeJs relative path resolver
     path: path.resolve(__dirname, './dist'),
-    filename: '[name].[contenthash].js',
+    filename: 'js/[name].[contenthash].js',
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
@@ -28,8 +28,8 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css',
+      filename: 'css/[name].[contenthash].css',
+      chunkFilename: 'css/[id].[contenthash].css',
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
@@ -60,7 +60,6 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               reloadAll: true,
-              publicPath: '/css',
               hmr: true,
             },
           },
@@ -75,8 +74,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[path][name].[ext]',
-            //outputPath: 'assets',
-            publicPath: 'assets'
+            outputPath: '/assets',
           }
         }
       }

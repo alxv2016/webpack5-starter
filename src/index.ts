@@ -1,4 +1,4 @@
-import './index.scss';
+import './css/index.scss';
 console.log('hello webpack');
 
 function component(): HTMLElement {
