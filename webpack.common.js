@@ -32,7 +32,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'My Test App!!',
       inject: true,
       filename: 'index.html',
       template: path.resolve(__dirname, 'src', 'index.html'),
