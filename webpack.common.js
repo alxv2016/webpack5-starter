@@ -14,7 +14,6 @@ module.exports = {
     // NodeJs relative path resolver
     path: path.resolve(__dirname, './dist'),
     filename: '[name].[contenthash].js',
-    // publicPath: '/js',
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
@@ -67,6 +66,18 @@ module.exports = {
           'sass-loader',
         ],
       },
+      // File loader
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]',
+            outputPath: 'assets',
+            publicPath: 'assets'
+          }
+        }
+      }
     ]
   },
 };
