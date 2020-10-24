@@ -8,8 +8,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   // 1 the entry file(s)
   entry: {
-    main: './src/index.ts',
-    vender: './src/vendor.ts'
+    main: {
+      import: './src/index.ts', 
+      dependOn: 'shared'
+    },
+    vendor: {
+      import: './src/vendor.ts', 
+      dependOn: 'shared'
+    },
+    shared: ['lodash']
   },
   // 2 the output file(s)
   output: {
