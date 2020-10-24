@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -29,7 +30,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
@@ -73,7 +75,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[path][name].[ext]',
-            outputPath: 'assets',
+            //outputPath: 'assets',
             publicPath: 'assets'
           }
         }
