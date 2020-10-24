@@ -67,14 +67,19 @@ module.exports = {
           'sass-loader',
         ],
       },
+      // Image loader
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
       // File loader
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpeg|png|svg|gif)$/i,
         use: {
           loader: 'file-loader',
           options: {
-            name: '[path][name].[ext]',
-            outputPath: '/assets',
+            name: '[hashContent].[ext]',
+            outputPath: 'assets',
           }
         }
       }
