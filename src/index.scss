@@ -1,0 +1,19 @@
+  
+$bgColor: #eeee;
+$boxColor: black;
+$salmon: salmon;
+
+body {
+  background-color: $bgColor;
+  color: black;
+}
+
+.hello {
+  color: $salmon;
+}
+
+.box {
+  background-color: $boxColor;
+  width: 600px;
+  height: 300px;
+}

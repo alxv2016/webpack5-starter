@@ -14,10 +14,12 @@ module.exports = {
   output: {
     // NodeJs relative path resolver
     path: path.resolve(__dirname, './dist'),
+    publicPath: '/',
     filename: 'js/[name].[contenthash].js',
+    assetModuleFilename: 'assets/[hash][ext][query]'
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".js"]
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -37,7 +39,7 @@ module.exports = {
     rules: [
       // Typescript rules
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -69,20 +71,14 @@ module.exports = {
       },
       // Image loader
       {
-        test: /\.html$/i,
+        test: /\.html$/,
         loader: 'html-loader',
       },
-      // File loader
+      // Webpack5 assets loader
       {
-        test: /\.(jpeg|png|svg|gif)$/i,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[hashContent].[ext]',
-            outputPath: 'assets',
-          }
-        }
-      }
+        test: /\.(jpeg|png|svg|gif)$/,
+        type: 'asset/resource'
+      },
     ]
   },
 };
