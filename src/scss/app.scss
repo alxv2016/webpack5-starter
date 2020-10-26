@@ -1,19 +1,7 @@
-  
-$bgColor: #eeee;
-$boxColor: black;
-$salmon: salmon;
-
-body {
-  background-color: $bgColor;
-  color: black;
-}
-
-.hello {
-  color: $salmon;
-}
-
-.box {
-  background-color: $boxColor;
-  width: 600px;
-  height: 300px;
-}
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Roboto+Mono:500|Roboto:400,500,700&display=swap');
+@import './scss/functions';
+@import './scss/mixins';
+@import './scss/variables';
+@import './scss/normalize';
+@import './scss/resets';
+@import './scss/base';

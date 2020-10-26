@@ -1,0 +1,66 @@
+/* Typography styles */
+p {
+  margin-bottom: $spacing--lg;
+}
+
+h1,
+h2,
+h3,
+h4,
+form legend {
+  line-height: $heading-line-height;
+  font-weight: inherit;
+  margin: $spacing--lg 0 $spacing--sm;
+}
+
+.large-title {
+  font-size: $large--title;
+}
+
+h1,
+.title--21 {
+  font-size: $text--1;
+  margin-top: 0;
+}
+
+h2,
+.title--2 {
+  font-size: $text--2;
+}
+
+h3,
+.title--3 {
+  font-size: $text--3;
+}
+
+h4,
+.subtitle--2 {
+  font-size: $subtitle--2;
+}
+
+.subtitle {
+  font-size: $subtitle;
+}
+
+.body--1 {
+  font-size: $body--1;
+}
+
+.body--2 {
+  font-size: $body--2;
+}
+
+.overline,
+.caption,
+small {
+  font-size: $overline;
+}
+
+.legal {
+  font-size: $legal;
+}
+
+b,
+strong {
+  font-weight: 500;
+}
