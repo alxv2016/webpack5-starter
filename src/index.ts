@@ -2,15 +2,6 @@ import './scss/app.scss';
 import _ from 'lodash';
 import Axios from 'axios';
 
-function component(): HTMLElement {
-  const element = document.createElement('div');
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = 'Hello webpack!!!!!!';
-  element.classList.add('hello');
-  return element;
-}
-console.log(process.env.API_URL, process.env.ACCESS_TOKEN);
-
 async function getData() {
   const masterRef = await Axios.get(`${process.env.API_URL}`).then((resp) => {
     return resp.data.refs[0].ref;
@@ -30,8 +21,16 @@ async function returnData() {
 returnData();
 
 function accessData(data: any) {
-  console.log(data);
-}
+  const title = document.createElement('h1');
+  const img = document.createElement('img');
+  // Lodash, currently included via a script, is required for this line to work
+  title.innerHTML = data[0].data.title[0].text;
+  document.body.appendChild(title);
 
-// test hot
-document.body.appendChild(component());
+  const copy = document.createElement('p');
+  copy.innerHTML = data[0].data.description[0].text;
+  document.body.appendChild(copy);
+
+  img.setAttribute('src', data[0].data.hero_banner.url);
+  document.body.appendChild(img);
+}
