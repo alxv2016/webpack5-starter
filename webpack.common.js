@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 // Commonly used webpack config
 module.exports = {
@@ -41,6 +42,9 @@ module.exports = {
       chunkFilename: 'css/[id].[contenthash].css',
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new Dotenv({
+      path: './.env',
+    }),
   ],
   module: {
     rules: [
