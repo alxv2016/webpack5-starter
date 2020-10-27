@@ -29,9 +29,9 @@ body {
   //color: map-get($system-light, text);
   // removes bounce in scrolling
   overscroll-behavior: none;
-  font-size: $base-mobile-font-size;
+  font-size: $body--2;
   @include breakpoint(sm) {
-    font-size: $base-font-size;
+    font-size: $body--1;
   }
 }
 // Links

@@ -1,51 +1,55 @@
 const path = require('path');
-const webpack = require('webpack');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-
-// Commonly used webpack config
+const SOURCE_PATH = path.resolve(__dirname, 'src');
+const DIST_PATH = path.resolve(__dirname, 'dist');
+// Common webpack config
 module.exports = {
-  // 1 the entry file(s)
+  // 1 base directory
+  // https://webpack.js.org/configuration/entry-context/#context
+  context: SOURCE_PATH,
+  // 2 the entry file(s)
+  // https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     main: {
-      import: './src/index.ts',
-      dependOn: 'shared',
+      import: `${SOURCE_PATH}/index.ts`,
+      dependOn: 'vendor',
     },
-    vendor: {
-      import: './src/vendor.ts',
-      dependOn: 'shared',
-    },
-    shared: ['lodash'],
+    vendor: ['lodash', 'axios'],
   },
-  // 2 the output file(s)
+  // 3 the output file(s)
+  // https://webpack.js.org/configuration/output/#outputpath
+  // https://webpack.js.org/configuration/output/#outputpublicpath
   output: {
-    // NodeJs relative path resolver
-    path: path.resolve(__dirname, './dist'),
+    path: DIST_PATH,
     publicPath: './',
-    filename: 'js/[name].[contenthash].js',
+    filename: 'js/[name].[contenthash].bundle.js',
     assetModuleFilename: 'assets/[hash][ext][query]',
   },
+  // 4 Resolve typescript
+  // https://webpack.js.org/configuration/resolve/#resolveextensions
   resolve: {
     extensions: ['.ts', '.js'],
   },
+  // 5 Plugins
+  // https://webpack.js.org/configuration/plugins/#plugins
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       filename: 'index.html',
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: `${SOURCE_PATH}/index.html`,
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash].css',
       chunkFilename: 'css/[id].[contenthash].css',
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new Dotenv({
       path: './.env',
     }),
   ],
+  // 6 Modules (Loaders)
+  // https://webpack.js.org/configuration/module/#ruleloaders
   module: {
     rules: [
       // Typescript rules
@@ -73,7 +77,6 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               reloadAll: true,
-              hmr: true,
             },
           },
           'css-loader',

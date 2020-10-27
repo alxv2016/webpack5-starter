@@ -3,7 +3,7 @@ $base-font-family: 'Roboto', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 
 $base-font-size: 1rem !default;
 $heading-line-height: 1.25 !default;
 $body-line-height: 1.65 !default;
-$max-screen-size: 1440px !default;
+$max-screen-size: 1280px !default;
 $font-families: (
   roboto: 'Roboto',
   abril: 'Abril Fatface',
@@ -54,13 +54,13 @@ $title--2: 2.074rem; //(1.728 * 1.2) 33px
 $title--1: 2.488rem; //(2.074 * 1.2) 39px
 $large--title: 2.986rem; //(2.489 * 1.2) 47px
 // Spacing scale
-$spacing-unit: 1rem !default;
-$spacing--2xs: 0.125 * $spacing-unit; // 2px;
-$spacing--xs: 0.25 * $spacing-unit; // 4px
-$spacing--sm: 0.5 * $spacing-unit; // 8px
-$spacing--md: 0.75 * $spacing-unit; // 12px
-$spacing--lg: 1.25 * $spacing-unit; // 20px
-$spacing--xl: 2 * $spacing-unit; // 32px
-$spacing--2xl: 3.25 * $spacing-unit; // 52px
-$spacing--3xl: 5.25 * $spacing-unit; // 84px
-$spacing--4xl: 8.5 * $spacing-unit; // 136px
+$spacing--base: 1rem !default;
+$spacing--2xs: 0.125 * $spacing--base; // 2px;
+$spacing--xs: 0.25 * $spacing--base; // 4px
+$spacing--sm: 0.5 * $spacing--base; // 8px
+$spacing--md: 0.75 * $spacing--base; // 12px
+$spacing--lg: 1.25 * $spacing--base; // 20px
+$spacing--xl: 2 * $spacing--base; // 32px
+$spacing--2xl: 3.25 * $spacing--base; // 52px
+$spacing--3xl: 5.25 * $spacing--base; // 84px
+$spacing--4xl: 8.5 * $spacing--base; // 136px

@@ -16,13 +16,6 @@
     }
   }
 }
-// unstyle list
-// Usage: @include reset-list;
-@mixin reset-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 // media query mixin
 // use the base-breakpoints map
 // usage: @include breakpoint($breakpoint);
@@ -82,8 +75,16 @@
 }
 
 // contain screen size
-@mixin max-screen-size {
-  width: 100%;
-  max-width: $max-screen-size;
-  margin: auto;
+@mixin container-padding {
+  padding: 0 $spacing--base;
+  @include breakpoint(md) {
+    padding: 0 $spacing--xl;
+  }
+  @include breakpoint(lg) {
+    padding: 0 $spacing--3xl;
+  }
+  @include breakpoint(xl) {
+    max-width: $max-screen-size;
+    margin: auto;
+  }
 }
