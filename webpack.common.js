@@ -1,29 +1,29 @@
 const path = require('path');
+
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-const SOURCE_PATH = path.resolve(__dirname, 'src');
-const DIST_PATH = path.resolve(__dirname, 'dist');
 // Common webpack config
 module.exports = {
   // 1 base directory
   // https://webpack.js.org/configuration/entry-context/#context
-  context: SOURCE_PATH,
-  // 2 the entry file(s)
+  context: path.resolve(__dirname, './src'),
+  // 2 the entry file(s) Where webpack looks to start building the bundle
   // https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     main: {
-      import: `${SOURCE_PATH}/index.ts`,
+      import: path.resolve(__dirname, 'src/index.ts'),
       dependOn: 'vendor',
     },
     vendor: ['lodash', 'axios'],
   },
-  // 3 the output file(s)
+  // 3 the output file(s) Where webpack outputs the assets and bundles
   // https://webpack.js.org/configuration/output/#outputpath
   // https://webpack.js.org/configuration/output/#outputpublicpath
   output: {
-    path: DIST_PATH,
-    publicPath: './',
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/',
     filename: 'js/[name].[contenthash].bundle.js',
     assetModuleFilename: 'assets/[hash][ext][query]',
   },
@@ -32,13 +32,15 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  // 5 Plugins
+  // 5 Plugins Customize the webpack build process
   // https://webpack.js.org/configuration/plugins/#plugins
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       filename: 'index.html',
-      template: `${SOURCE_PATH}/index.html`,
+      // favicon: '',
+      template: path.resolve(__dirname, './src/index.html'),
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash].css',
@@ -58,17 +60,6 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-      // Babel rules
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
       // Scss loader
       {
         test: /\.(sa|sc|c)ss$/,
@@ -79,7 +70,12 @@ module.exports = {
               reloadAll: true,
             },
           },
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {
@@ -98,8 +94,13 @@ module.exports = {
       },
       // Webpack5 assets loader
       {
-        test: /\.(jpeg|png|svg|gif)$/,
+        test: /\.(ico|jpeg|png|svg|gif)$/,
         type: 'asset/resource',
+      },
+      // Fonts and SVGs: Inline files
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline',
       },
     ],
   },

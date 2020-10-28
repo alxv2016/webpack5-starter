@@ -1,7 +1,7 @@
 const path = require('path');
+
 const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
-const DIST_PATH = path.join(__dirname, 'dist');
 // Merge webpack dev config with common configs
 module.exports = merge(common, {
   // https://webpack.js.org/configuration/mode/#usage
@@ -16,13 +16,13 @@ module.exports = merge(common, {
   // https://webpack.js.org/configuration/dev-server/#devserverlivereload
   // https://webpack.js.org/configuration/dev-server/#devserverwatchcontentbase
   devServer: {
-    contentBase: DIST_PATH,
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, './dist'),
     publicPath: '/',
     compress: true,
-    stats: 'errors-only',
     liveReload: true,
     watchContentBase: true,
     open: true,
-    port: 9000,
+    port: 8080,
   },
 });
