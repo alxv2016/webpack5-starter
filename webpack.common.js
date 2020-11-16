@@ -16,7 +16,7 @@ module.exports = {
       import: path.resolve(__dirname, './src/index.ts'),
       dependOn: 'vendors',
     },
-    vendors: ['axios', 'lodash'],
+    vendors: ['axios'],
   },
   // 3 the output file(s) Where webpack outputs the assets and bundles
   // https://webpack.js.org/configuration/output/#outputpath
@@ -37,10 +37,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      inject: true,
-      filename: 'index.html',
       // favicon: '',
-      template: path.resolve(__dirname, './src/index.html'),
+      template: path.resolve(__dirname, './src/template.html'),
+      filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash].css',
@@ -62,7 +61,7 @@ module.exports = {
       },
       // Scss loader
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(scss|css)$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -76,14 +75,7 @@ module.exports = {
               importLoaders: 1,
             },
           },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [['autoprefixer']],
-              },
-            },
-          },
+          'postcss-loader',
           'sass-loader',
         ],
       },
@@ -94,7 +86,7 @@ module.exports = {
       },
       // Webpack5 assets loader
       {
-        test: /\.(ico|jpeg|png|svg|gif)$/,
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
       // Fonts and SVGs: Inline files

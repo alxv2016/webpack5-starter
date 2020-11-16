@@ -1,5 +1,4 @@
 import './scss/app.scss';
-import _ from 'lodash';
 import Axios from 'axios';
 
 async function getData() {
