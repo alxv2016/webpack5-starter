@@ -23,7 +23,7 @@ module.exports = {
   // https://webpack.js.org/configuration/output/#outputpublicpath
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
+    publicPath: './',
     filename: 'js/[name].[contenthash].bundle.js',
     assetModuleFilename: 'assets/[hash][ext][query]',
   },
@@ -67,6 +67,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               reloadAll: true,
+              publicPath: '../',
             },
           },
           {
