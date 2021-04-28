@@ -17,7 +17,8 @@ async function returnData() {
   const data = await getData();
   accessData(data);
 }
-returnData();
+
+//returnData();
 
 function accessData(data: any) {
   const title = document.createElement('h1');
