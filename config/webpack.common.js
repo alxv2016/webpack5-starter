@@ -1,44 +1,75 @@
-const path = require('path');
-
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+// Plugins
+// https://github.com/johnagan/clean-webpack-plugin
+// https://webpack.js.org/plugins/copy-webpack-plugin/
+// https://webpack.js.org/plugins/html-webpack-plugin/
+// https://webpack.js.org/plugins/mini-css-extract-plugin/
+// https://github.com/mrsteele/dotenv-webpack
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+// File to our paths
+const paths = require('./paths');
+
 // Common webpack config
 module.exports = {
-  // 1 base directory
   // https://webpack.js.org/configuration/entry-context/#context
-  context: path.resolve(__dirname, './src'),
-  // 2 the entry file(s) Where webpack looks to start building the bundle
-  // https://webpack.js.org/configuration/entry-context/#entry
+  // Set our absolute path: the src directory
+  context: paths.src,
+  // https://webpack.js.org/configuration/entry-context/#dependencies
+  // the entry file(s) Where webpack looks to start building the bundle
+  // dependOn will let you share vendor libraries
   entry: {
-    main: {
-      import: path.resolve(__dirname, './src/index.ts'),
+    app: {
+      import: paths.src + '/index.ts',
       dependOn: 'vendors',
     },
     vendors: ['axios'],
   },
-  // 3 the output file(s) Where webpack outputs the assets and bundles
+  // the output file(s) Where webpack outputs the assets and bundles
   // https://webpack.js.org/configuration/output/#outputpath
   // https://webpack.js.org/configuration/output/#outputpublicpath
+  // https://webpack.js.org/configuration/output/#outputclean
+  // NOTE: clean is build in feature won't need cleanwebpackplugin
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: './',
+    clean: true,
+    path: paths.build,
     filename: 'js/[name].[contenthash].bundle.js',
     assetModuleFilename: 'assets/[hash][ext][query]',
+    publicPath: '/',
   },
-  // 4 Resolve typescript
+  // Resolve typescript
+  // https://webpack.js.org/configuration/resolve/#resolvemodules
   // https://webpack.js.org/configuration/resolve/#resolveextensions
+  // https://webpack.js.org/configuration/resolve/#resolvealias
   resolve: {
+    modules: [paths.src, 'node_modules'],
     extensions: ['.ts', '.js'],
+    alias: {
+      '@': paths.src,
+      public: paths.public,
+    },
   },
-  // 5 Plugins Customize the webpack build process
+  // Plugins Customize the webpack build process
   // https://webpack.js.org/configuration/plugins/#plugins
   plugins: [
-    new CleanWebpackPlugin(),
+    // Copies files from target to destination folder
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: paths.public,
+          to: 'assets',
+          globOptions: {
+            ignore: ['*.DS_Store'],
+          },
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
+    // Generates an HTML file from a template
     new HtmlWebpackPlugin({
       // favicon: '',
-      template: path.resolve(__dirname, './src/template.html'),
+      template: paths.src + '/template.html',
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
@@ -67,13 +98,13 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               emit: true,
-              publicPath: '../',
+              // publicPath: '../',
             },
           },
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
+              importLoaders: 2,
             },
           },
           'postcss-loader',
